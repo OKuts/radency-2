@@ -11,8 +11,7 @@ const App = () => {
           headerData={todoTableData}
           bodyType='todos'
         />
-
-        <input/>
+        <button>Send</button>
       </div>
       <Table
         headerData={statisticsTableData}
