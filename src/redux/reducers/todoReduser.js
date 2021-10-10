@@ -8,7 +8,6 @@ const initialState = {
 
 
 export const todoReducer = (state = initialState, action) => {
-  console.log(state);
 
   return state;
 }

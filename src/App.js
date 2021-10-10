@@ -1,13 +1,23 @@
 import './App.css';
-import {useSelector} from "react-redux";
+import {Table} from "./components/table/Table";
+import {statisticsTableData, todoTableData} from "./data/todoTableData";
 
 const App = () => {
-  const out = useSelector(state => state.todos);
 
   return (
     <div className='app'>
-      <h1>Hometask #2 | React, Redux</h1>
-      <h1>Hometask #2 | React, Redux</h1>
+      <div>
+        <Table
+          headerData={todoTableData}
+          bodyType='todos'
+        />
+
+        <input/>
+      </div>
+      <Table
+        headerData={statisticsTableData}
+        bodyType='statistics'
+      />
     </div>
   );
 }
