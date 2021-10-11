@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {CHANGE_IS_SHOW_ALL, DELETE_ALL_TODOS, DELETE_STATISTICS} from '../../redux/reducers/actions';
+import {CHANGE_IS_SHOW_ALL, DELETE_ALL_TODOS, DELETE_STATISTICS} from '../../store/actions';
 
 export const Header = ({headerData}) => {
   const dispatch = useDispatch();

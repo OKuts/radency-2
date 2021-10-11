@@ -33,6 +33,12 @@ export const TableCont = styled.table`
     &:hover {
       color: black;
       transform: scale(1.5);
+      cursor: pointer;
+    }
+    
+    &.circle:hover {
+      transform: none;
+      cursor: inherit;
     }
   }
   

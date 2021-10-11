@@ -1,14 +1,17 @@
 import {todos} from '../data/data';
-import {ARCHIVE_TODO, CHANGE_IS_SHOW_ALL, DELETE_ALL_TODOS, DELETE_TODO } from '../redux/reducers/actions';
+import {ARCHIVE_TODO, CHANGE_IS_SHOW_ALL, DELETE_ALL_TODOS, DELETE_TODO, SET_CURRENT_TODO} from './actions';
 
 const initialState = {
   todos: todos || [],
   isShowAllTodos: false,
+  currentTodo: -1,
 }
-
 
 export const todoReducer = (state = initialState, action) => {
   switch (action.type){
+
+    case SET_CURRENT_TODO:
+      return {...state, currentTodo: action.payload};
 
     case CHANGE_IS_SHOW_ALL:
       return {...state, isShowAllTodos: !state.isShowAllTodos};

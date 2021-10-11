@@ -1,6 +1,8 @@
 import './App.css';
 import {Table} from './components/table/Table';
 import {statisticsTableData, todoTableData} from './data/todoTableData';
+import {ModalEditForm} from "./components/ModalEditForm";
+import {Button} from "./components/Button";
 
 const App = () => {
 
@@ -11,12 +13,13 @@ const App = () => {
           headerData={todoTableData}
           bodyType='todos'
         />
-        <button>Send</button>
+        <Button children='Create Note'/>
       </div>
       <Table
         headerData={statisticsTableData}
         bodyType='statistics'
       />
+      <ModalEditForm/>
     </div>
   );
 }

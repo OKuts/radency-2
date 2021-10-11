@@ -1,6 +1,6 @@
 import {categories, todos} from '../data/data';
 import {initStatistics} from '../data/initStatistics';
-import { CHANGE_STATISTICS,  DELETE_STATISTICS } from '../redux/reducers/actions';
+import { CHANGE_STATISTICS,  DELETE_STATISTICS } from './actions';
 
 const initialState = {
   statistics: initStatistics(todos, categories),
