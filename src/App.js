@@ -1,6 +1,6 @@
 import './App.css';
-import {Table} from "./components/table/Table";
-import {statisticsTableData, todoTableData} from "./data/todoTableData";
+import {Table} from './components/table/Table';
+import {statisticsTableData, todoTableData} from './data/todoTableData';
 
 const App = () => {
 
