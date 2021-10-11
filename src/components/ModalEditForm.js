@@ -1,27 +1,35 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ModalWrapper} from "./ModalWrapper.styles";
 import {useDispatch, useSelector} from "react-redux";
 import {categories} from "../data/data";
 import {SET_CURRENT_TODO} from "../store/actions";
 import {ButtonWrapper} from "./ButtonWrapper.styles";
 
-const submitForm = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  console.log(8888888)
-
-}
 
 export const ModalEditForm = ({data}) => {
   const dispatch = useDispatch();
   const modal = useRef();
   const currentTodo = useSelector(state => state.todoReducer.currentTodo);
   const todos = useSelector(state => state.todoReducer.todos);
-  const [todoName, setTodoName] = useState(currentTodo >= 0 ? todos[currentTodo].name: '');
-  const [todoContent, setTodoContent] = useState(currentTodo >= 0 ? todos[currentTodo].content: '');
-  // const [todoCategoryId, setTodoCategoryId] = useState(currentTodo >= 0 ? todos[currentTodo].categoryId: '');
+  const [todoName, setTodoName] = useState( '');
+  const [todoContent, setTodoContent] = useState('');
 
-  // console.log(currentTodo);
+ if (currentTodo >= 0) console.log(todos[currentTodo].name)
+  console.log('currentTodo', currentTodo)
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch({type:SET_CURRENT_TODO, payload: -1})
+  }
+
+  useEffect(() => {
+    if (currentTodo >= 0) {
+      setTodoName(todos[currentTodo].name);
+      setTodoContent(todos[currentTodo].content);
+    }
+  }, [currentTodo])
+
   return (
     <ModalWrapper
       ref={modal}
