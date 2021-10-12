@@ -2,14 +2,15 @@ import {ModalWrapper} from "./ModalWrapper.styles";
 import {useDispatch, useSelector} from "react-redux";
 import {categories} from "../data/data";
 import {ButtonWrapper} from "./ButtonWrapper.styles";
-import {
-  addNewTodo, changeCurrentCategoryId, changeCurrentContent, changeCurrentName, changeStatistics, cleanCurrentTodo,
-} from '../store/actions';
+import todosSlice, {
+  addNewTodo, changeCurrentCategoryId, changeCurrentContent, changeCurrentName, cleanCurrentTodo,
+} from '../toolkitStore/todosSlice';
+import {changeStatistics} from '../toolkitStore/statisticsSlice';
 
 
 export const ModalEditForm = ({data}) => {
   const dispatch = useDispatch();
-  const currentTodo = useSelector(state => state.todoReducer.currentTodo);
+  const currentTodo = useSelector(state => state.todosSlice.currentTodo);
 
   const submitForm = (e, categoryId) => {
     e.preventDefault();

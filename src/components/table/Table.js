@@ -6,8 +6,8 @@ import {useSelector} from 'react-redux';
 
 export const Table = ({headerData, bodyType}) => {
   const bodyData = useSelector(state => bodyType === 'todos'
-    ? state.todoReducer.todos : state.statisticsReducer.statistics);
-  const isShowAllTodos = useSelector(state => state.todoReducer.isShowAllTodos);
+    ? state.todosSlice.todos : state.statisticsSlice.statistics);
+  const isShowAllTodos = useSelector(state => state.todosSlice.isShowAllTodos);
 
   return (
     <TableCont>

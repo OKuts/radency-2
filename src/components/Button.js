@@ -1,7 +1,8 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {SET_CURRENT_TODO_NUM} from "../store/actions";
+
 import {ButtonWrapper} from "./ButtonWrapper.styles";
+import {setCurrentTodoNum} from "../toolkitStore/todosSlice";
 
 
 
@@ -10,7 +11,7 @@ export const Button = (props) => {
 
   const onButton = (e) => {
     e.preventDefault();
-    dispatch({type: SET_CURRENT_TODO_NUM, payload: -2 })
+    dispatch(setCurrentTodoNum(-2 ));
   }
 
 

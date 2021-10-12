@@ -2,9 +2,8 @@ import {categories} from '../../data/data';
 import {extractDates} from '../../helpers/extractDates';
 import {dateFormat} from '../../helpers/dateFormat';
 import {useDispatch} from 'react-redux';
-import {
-  archiveTodo, changeStatistics, deleteTodo, setCurrentTodoNum
-} from '../../store/actions';
+import {archiveTodo, deleteTodo, setCurrentTodoNum} from '../../toolkitStore/todosSlice';
+import {changeStatistics} from '../../toolkitStore/statisticsSlice';
 
 const TableDataJsx = ({data, bodyType, isShowAllTodos}) => {
   const dispatch = useDispatch();

@@ -1,16 +1,10 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {
-  changeIsShowAll,
-  DELETE_ALL_TODOS,
-  DELETE_STATISTICS,
-  deleteAllTodos,
-  deleteStatistics
-} from '../../store/actions';
+import {changeIsShowAll, deleteAllTodos} from "../../toolkitStore/todosSlice";
+import {deleteStatistics} from "../../toolkitStore/statisticsSlice";
 
 export const Header = ({headerData}) => {
   const dispatch = useDispatch();
-
 
   const headerHandler = (iconType) => {
     if (iconType === 'showAll') {
