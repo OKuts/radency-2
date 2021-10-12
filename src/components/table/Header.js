@@ -1,6 +1,12 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {CHANGE_IS_SHOW_ALL, DELETE_ALL_TODOS, DELETE_STATISTICS} from '../../store/actions';
+import {
+  changeIsShowAll,
+  DELETE_ALL_TODOS,
+  DELETE_STATISTICS,
+  deleteAllTodos,
+  deleteStatistics
+} from '../../store/actions';
 
 export const Header = ({headerData}) => {
   const dispatch = useDispatch();
@@ -8,10 +14,10 @@ export const Header = ({headerData}) => {
 
   const headerHandler = (iconType) => {
     if (iconType === 'showAll') {
-      dispatch({type: CHANGE_IS_SHOW_ALL})
+      dispatch(changeIsShowAll());
     } else {
-      dispatch({type: DELETE_ALL_TODOS});
-      dispatch({type: DELETE_STATISTICS});
+      dispatch(deleteAllTodos());
+      dispatch(deleteStatistics());
     }
   }
 

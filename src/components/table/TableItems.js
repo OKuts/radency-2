@@ -1,11 +1,10 @@
-import React from 'react';
-import {categories} from "../../data/data";
-import {extractDates} from "../../helpers/extractDates";
-import {dateFormat} from "../../helpers/dateFormat";
-import {useDispatch} from "react-redux";
+import {categories} from '../../data/data';
+import {extractDates} from '../../helpers/extractDates';
+import {dateFormat} from '../../helpers/dateFormat';
+import {useDispatch} from 'react-redux';
 import {
-  ARCHIVE_TODO, CHANGE_STATISTICS, DELETE_TODO, SET_CURRENT_TODO, SET_CURRENT_TODO_NUM
-} from "../../store/actions";
+  archiveTodo, changeStatistics, deleteTodo, setCurrentTodoNum
+} from '../../store/actions';
 
 const TableDataJsx = ({data, bodyType, isShowAllTodos}) => {
   const dispatch = useDispatch();
@@ -14,22 +13,22 @@ const TableDataJsx = ({data, bodyType, isShowAllTodos}) => {
     switch (iconType) {
 
       case 'edit':
-        dispatch({type: SET_CURRENT_TODO_NUM, payload: num })
+        dispatch(setCurrentTodoNum(num));
         break;
 
       case 'archive':
-        dispatch({type: ARCHIVE_TODO, payload: { num, id }});
-        dispatch({type: CHANGE_STATISTICS, payload: { id, active: -1, total: 0 }});
+        dispatch(archiveTodo({ num, id }));
+        dispatch(changeStatistics({ id, active: -1, total: 0 }));
         break;
 
       case 'delete':
-        dispatch({type: DELETE_TODO, payload: { num, id }});
-        dispatch({type: CHANGE_STATISTICS, payload: { id, active: -1, total: -1 }});
+        dispatch(deleteTodo({ num, id }));
+        dispatch(changeStatistics({ id, active: -1, total: -1 }));
         break;
 
       case 'extract':
-        dispatch({type: ARCHIVE_TODO, payload: {num, id }});
-        dispatch({type: CHANGE_STATISTICS, payload: { id, active: 1, total: 0 }});
+        dispatch(archiveTodo({num, id }));
+        dispatch(changeStatistics({ id, active: 1, total: 0 }));
         break;
       default:
     }

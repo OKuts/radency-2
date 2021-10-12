@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {CLEAN_CURRENT_TODO, SET_CURRENT_TODO_NUM} from "../store/actions";
+import {SET_CURRENT_TODO_NUM} from "../store/actions";
 import {ButtonWrapper} from "./ButtonWrapper.styles";
 
 

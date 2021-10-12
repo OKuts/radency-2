@@ -1,15 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
 import {ModalWrapper} from "./ModalWrapper.styles";
 import {useDispatch, useSelector} from "react-redux";
 import {categories} from "../data/data";
 import {ButtonWrapper} from "./ButtonWrapper.styles";
 import {
-  ADD_NEW_TODO,
-  CHANGE_CURRENT_CATEGORY_ID,
-  CHANGE_CURRENT_CONTENT,
-  CHANGE_CURRENT_NAME, CHANGE_STATISTICS, CLEAN_CURRENT_TODO,
-  SET_CURRENT_TODO
-} from "../store/actions";
+  addNewTodo, changeCurrentCategoryId, changeCurrentContent, changeCurrentName, changeStatistics, cleanCurrentTodo,
+} from '../store/actions';
 
 
 export const ModalEditForm = ({data}) => {
@@ -19,22 +14,21 @@ export const ModalEditForm = ({data}) => {
   const submitForm = (e, categoryId) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch({type:ADD_NEW_TODO});
-    dispatch({type:CLEAN_CURRENT_TODO});
-    dispatch({type:CHANGE_STATISTICS, payload: {id: categoryId, active: 1, total: 1}});
+    dispatch(addNewTodo());
+    dispatch(cleanCurrentTodo());
+    dispatch(changeStatistics({id: categoryId, active: 1, total: 1}));
   }
 
   const changeForm = (el) => {
-    console.log(el.id)
     switch (el.id) {
       case 'name':
-        dispatch({type:CHANGE_CURRENT_NAME, payload: el.value});
+        dispatch(changeCurrentName(el.value));
         break;
       case 'content':
-        dispatch({type:CHANGE_CURRENT_CONTENT, payload: el.value});
+        dispatch(changeCurrentContent(el.value));
         break;
       case 'category':
-        dispatch({type:CHANGE_CURRENT_CATEGORY_ID, payload: el.value});
+        dispatch(changeCurrentCategoryId(el.value));
         break;
       default:
     }
@@ -44,7 +38,7 @@ export const ModalEditForm = ({data}) => {
   return (
     <ModalWrapper
       display={currentTodo.num >= 0 || currentTodo.num === -2 ? 'flex' : 'none'}
-      onClick={() => dispatch({type: SET_CURRENT_TODO, payload: -1})}>
+      onClick={() => dispatch(cleanCurrentTodo())}>
       <form onClick={(e) => e.stopPropagation()}>
         <label htmlFor="category">Select category</label>
         <select
@@ -68,7 +62,7 @@ export const ModalEditForm = ({data}) => {
         </textarea>
         <ButtonWrapper>
           <button onClick={(e) =>submitForm(e, currentTodo.categoryId)}>
-            Add todo
+            {currentTodo.num >=0 ? 'Update todo' : 'Add todo'}
           </button>
         </ButtonWrapper>
       </form>

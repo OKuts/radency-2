@@ -5,7 +5,6 @@ import {
   CHANGE_IS_SHOW_ALL, CLEAN_CURRENT_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
-  SET_CURRENT_TODO,
   SET_CURRENT_TODO_NUM
 } from './actions';
 
@@ -52,7 +51,6 @@ export const todoReducer = (state = initialState, action) => {
       };
 
     case SET_CURRENT_TODO_NUM:
-      console.log(action.payload);
       return {
         ...state,
         currentTodo: {
