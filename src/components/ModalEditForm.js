@@ -2,62 +2,74 @@ import React, {useEffect, useRef, useState} from 'react';
 import {ModalWrapper} from "./ModalWrapper.styles";
 import {useDispatch, useSelector} from "react-redux";
 import {categories} from "../data/data";
-import {SET_CURRENT_TODO} from "../store/actions";
 import {ButtonWrapper} from "./ButtonWrapper.styles";
+import {
+  ADD_NEW_TODO,
+  CHANGE_CURRENT_CATEGORY_ID,
+  CHANGE_CURRENT_CONTENT,
+  CHANGE_CURRENT_NAME, CHANGE_STATISTICS, CLEAN_CURRENT_TODO,
+  SET_CURRENT_TODO
+} from "../store/actions";
 
 
 export const ModalEditForm = ({data}) => {
   const dispatch = useDispatch();
-  const modal = useRef();
   const currentTodo = useSelector(state => state.todoReducer.currentTodo);
-  const todos = useSelector(state => state.todoReducer.todos);
-  const [todoName, setTodoName] = useState( '');
-  const [todoContent, setTodoContent] = useState('');
 
- if (currentTodo >= 0) console.log(todos[currentTodo].name)
-  console.log('currentTodo', currentTodo)
-
-  const submitForm = (e) => {
+  const submitForm = (e, categoryId) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch({type:SET_CURRENT_TODO, payload: -1})
+    dispatch({type:ADD_NEW_TODO});
+    dispatch({type:CLEAN_CURRENT_TODO});
+    dispatch({type:CHANGE_STATISTICS, payload: {id: categoryId, active: 1, total: 1}});
   }
 
-  useEffect(() => {
-    if (currentTodo >= 0) {
-      setTodoName(todos[currentTodo].name);
-      setTodoContent(todos[currentTodo].content);
+  const changeForm = (el) => {
+    console.log(el.id)
+    switch (el.id) {
+      case 'name':
+        dispatch({type:CHANGE_CURRENT_NAME, payload: el.value});
+        break;
+      case 'content':
+        dispatch({type:CHANGE_CURRENT_CONTENT, payload: el.value});
+        break;
+      case 'category':
+        dispatch({type:CHANGE_CURRENT_CATEGORY_ID, payload: el.value});
+        break;
+      default:
     }
-  }, [currentTodo])
+
+  }
 
   return (
     <ModalWrapper
-      ref={modal}
-      display={currentTodo >= 0 || currentTodo === -2 ? 'flex' : 'none'}
+      display={currentTodo.num >= 0 || currentTodo.num === -2 ? 'flex' : 'none'}
       onClick={() => dispatch({type: SET_CURRENT_TODO, payload: -1})}>
       <form onClick={(e) => e.stopPropagation()}>
         <label htmlFor="category">Select category</label>
-        <select id="category" name="category">
+        <select
+          id="category"
+          onChange={(e) => changeForm(e.target)}
+          value={currentTodo.categoryId}>
           {Object.keys(categories).map(item => <option key={item} value={item}>{categories[item].name}</option>)}
         </select>
 
         <label htmlFor="name">Todo's name</label>
         <input
           id="name"
-          onChange={(e) => setTodoName(e.target.value)}
-          value={todoName}/>
-
+          onChange={(e) => changeForm(e.target)}
+          value={currentTodo.name}/>
         <label htmlFor="content">Content</label>
         <textarea
-          onChange={(e) => setTodoContent(e.target.value)}
-          value={todoContent}
-          id="content"
-          name="content"
-          type="text">
+          onChange={(e) => changeForm(e.target)}
+          value={currentTodo.content}
+          id="content">
 
         </textarea>
         <ButtonWrapper>
-          <button onClick={submitForm}>Add todo</button>
+          <button onClick={(e) =>submitForm(e, currentTodo.categoryId)}>
+            Add todo
+          </button>
         </ButtonWrapper>
       </form>
     </ModalWrapper>
