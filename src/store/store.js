@@ -1,6 +1,6 @@
 import {combineReducers, createStore} from 'redux';
-import {todoReducer} from './todoReduser';
-import {statisticsReducer} from './statisticsReduser';
+import {todoReducer} from './todoReducer';
+import {statisticsReducer} from './statisticsReducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 const rootReducer = combineReducers({
