@@ -59,6 +59,15 @@ export const todosSlice = createSlice({
           return item
         })
       },
+      editTodo: (state, action) => {
+        state.todos = state.todos.map((item, i) => {
+          if (i !== action.payload) return item;
+          item.name = state.currentTodo.name;
+          item.categoryId = state.currentTodo.categoryId;
+          item.content = state.currentTodo.content;
+          return item
+        })
+      }
     },
   }
 )
@@ -73,7 +82,8 @@ export const {
   changeIsShowAll,
   deleteAllTodos,
   deleteTodo,
-  archiveTodo
+  archiveTodo,
+  editTodo,
 } = todosSlice.actions;
 
 export default todosSlice.reducer;

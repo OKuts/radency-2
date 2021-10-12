@@ -1,8 +1,8 @@
 import './App.css';
 import {Table} from './components/table/Table';
 import {statisticsTableData, todoTableData} from './data/todoTableData';
-import {ModalEditForm} from "./components/ModalEditForm";
-import {Button} from "./components/Button";
+import {ModalEditForm} from './components/ModalEditForm';
+import {Button} from './components/Button';
 
 const App = () => {
 

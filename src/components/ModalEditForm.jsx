@@ -1,12 +1,14 @@
-import {ModalWrapper} from "./ModalWrapper.styles";
-import {useDispatch, useSelector} from "react-redux";
-import {categories} from "../data/data";
-import {ButtonWrapper} from "./ButtonWrapper.styles";
-import todosSlice, {
-  addNewTodo, changeCurrentCategoryId, changeCurrentContent, changeCurrentName, cleanCurrentTodo,
+import {useDispatch, useSelector} from 'react-redux';
+
+import {categories} from '../data/data';
+
+import {ModalWrapper} from './ModalWrapper.styles';
+import {ButtonWrapper} from './ButtonWrapper.styles';
+
+import {
+  addNewTodo, changeCurrentCategoryId, changeCurrentContent, changeCurrentName, cleanCurrentTodo, editTodo,
 } from '../toolkitStore/todosSlice';
 import {changeStatistics} from '../toolkitStore/statisticsSlice';
-
 
 export const ModalEditForm = ({data}) => {
   const dispatch = useDispatch();
@@ -15,9 +17,13 @@ export const ModalEditForm = ({data}) => {
   const submitForm = (e, categoryId) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(addNewTodo());
+    if (currentTodo.num >= 0) {
+      dispatch(editTodo(currentTodo.num));
+    } else {
+      dispatch(addNewTodo());
+      dispatch(changeStatistics({id: categoryId, active: 1, total: 1}));
+    }
     dispatch(cleanCurrentTodo());
-    dispatch(changeStatistics({id: categoryId, active: 1, total: 1}));
   }
 
   const changeForm = (el) => {
@@ -62,8 +68,8 @@ export const ModalEditForm = ({data}) => {
 
         </textarea>
         <ButtonWrapper>
-          <button onClick={(e) =>submitForm(e, currentTodo.categoryId)}>
-            {currentTodo.num >=0 ? 'Update todo' : 'Add todo'}
+          <button onClick={(e) => submitForm(e, currentTodo.categoryId)}>
+            {currentTodo.num >= 0 ? 'Update todo' : 'Add todo'}
           </button>
         </ButtonWrapper>
       </form>
