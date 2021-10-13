@@ -1,5 +1,5 @@
 import {categories, todos} from '../data/data';
-import {initStatistics} from '../data/initStatistics';
+import {initStatistics} from '../helpers/initStatistics';
 import { CHANGE_STATISTICS,  DELETE_STATISTICS } from './actions';
 
 const initialState = {

@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 import {categories, todos} from '../data/data';
-import {initStatistics} from '../data/initStatistics';
+import {initStatistics} from '../helpers/initStatistics';
 
 export const statisticsSlice = createSlice({
   name: 'statistics',
@@ -22,8 +22,9 @@ export const statisticsSlice = createSlice({
 
     changeStatistics(state, action) {
       const statisticsCopy = {...state.statistics};
+      console.log(action.payload)
       Object.keys(statisticsCopy).forEach(item => {
-        if (action.payload.id === item) {
+        if (action.payload.categoryId === item) {
           statisticsCopy[item].active += action.payload.active;
           statisticsCopy[item].total += action.payload.total;
         }

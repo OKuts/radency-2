@@ -17,11 +17,11 @@ export const ModalEditForm = ({data}) => {
   const submitForm = (e, categoryId) => {
     e.preventDefault();
     e.stopPropagation();
-    if (currentTodo.num >= 0) {
-      dispatch(editTodo(currentTodo.num));
+    if (currentTodo.id) {
+      dispatch(editTodo(currentTodo.id));
     } else {
       dispatch(addNewTodo());
-      dispatch(changeStatistics({id: categoryId, active: 1, total: 1}));
+      dispatch(changeStatistics({categoryId, active: 1, total: 1}));
     }
     dispatch(cleanCurrentTodo());
   }
@@ -41,10 +41,9 @@ export const ModalEditForm = ({data}) => {
     }
 
   }
-
   return (
     <ModalWrapper
-      display={currentTodo.num >= 0 || currentTodo.num === -2 ? 'flex' : 'none'}
+      display={currentTodo.id >= 0 ? 'flex' : 'none'}
       onClick={() => dispatch(cleanCurrentTodo())}>
       <form onClick={(e) => e.stopPropagation()}>
         <label htmlFor="category">Select category</label>
@@ -69,7 +68,7 @@ export const ModalEditForm = ({data}) => {
         </textarea>
         <ButtonWrapper>
           <button onClick={(e) => submitForm(e, currentTodo.categoryId)}>
-            {currentTodo.num >= 0 ? 'Update todo' : 'Add todo'}
+            {currentTodo.id !== 0 ? 'Update todo' : 'Add todo'}
           </button>
         </ButtonWrapper>
       </form>

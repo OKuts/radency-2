@@ -9,7 +9,7 @@ export const todosSlice = createSlice({
       isShowAllTodos: false,
       currentTodo: {
         categoryId: 0,
-        num: -1,
+        id: -1,
         name: '',
         content: ''
       }
@@ -17,8 +17,8 @@ export const todosSlice = createSlice({
 
     reducers: {
       addNewTodo: state => {
-        const current = {...state.currentTodo};
-        delete current['num'];
+        const current = state.currentTodo;
+        current.id = state.todos.length + 1;
         current.created = Date.now();
         current.active = true;
         state.todos.push(current)
@@ -35,12 +35,13 @@ export const todosSlice = createSlice({
       cleanCurrentTodo: state => {
         state.currentTodo = {categoryId: 0, num: -1, name: '', content: ''}
       },
-      setCurrentTodoNum: (state, action) => {
+      setCurrentTodoId: (state, action) => {
+        const el = action.payload ? state.todos.filter(todo => todo.id === action.payload)[0] : null;
         state.currentTodo = {
-          num: action.payload,
-          categoryId: action.payload >= 0 ? state.todos[action.payload].categoryId : 0,
-          name: action.payload >= 0 ? state.todos[action.payload].name : '',
-          content: action.payload >= 0 ? state.todos[action.payload].content : '',
+          id: el ? action.payload :  0,
+          categoryId: el ? el.categoryId : 0,
+          name: el ? el.name : '',
+          content: el ? el.content : '',
         }
       },
       changeIsShowAll: state => {
@@ -51,17 +52,17 @@ export const todosSlice = createSlice({
         state.todos = [];
       },
       deleteTodo: (state, action) => {
-        state.todos = state.todos.filter((_, i) => i !== action.payload.num);
+        state.todos = state.todos.filter(todo => todo.id !== action.payload);
       },
       archiveTodo: (state, action) => {
-        state.todos = state.todos.map((item, i) => {
-          if (i === action.payload.num) item.active = !item.active;
+        state.todos = state.todos.map(item => {
+          if (item.id === action.payload) item.active = !item.active;
           return item
         })
       },
       editTodo: (state, action) => {
-        state.todos = state.todos.map((item, i) => {
-          if (i !== action.payload) return item;
+        state.todos = state.todos.map(item => {
+          if (item.id !== action.payload) return item;
           item.name = state.currentTodo.name;
           item.categoryId = state.currentTodo.categoryId;
           item.content = state.currentTodo.content;
@@ -78,7 +79,7 @@ export const {
   changeCurrentName,
   changeCurrentCategoryId,
   cleanCurrentTodo,
-  setCurrentTodoNum,
+  setCurrentTodoId,
   changeIsShowAll,
   deleteAllTodos,
   deleteTodo,

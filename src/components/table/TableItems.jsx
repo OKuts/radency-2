@@ -2,59 +2,59 @@ import {categories} from '../../data/data';
 import {extractDates} from '../../helpers/extractDates';
 import {dateFormat} from '../../helpers/dateFormat';
 import {useDispatch} from 'react-redux';
-import {archiveTodo, deleteTodo, setCurrentTodoNum} from '../../toolkitStore/todosSlice';
+import {archiveTodo, deleteTodo, setCurrentTodoId} from '../../toolkitStore/todosSlice';
 import {changeStatistics} from '../../toolkitStore/statisticsSlice';
 
 const TableDataJsx = ({data, bodyType, isShowAllTodos}) => {
   const dispatch = useDispatch();
 
-  const bodyHandler = (num, id,  iconType) => {
+  const bodyHandler = (id, categoryId,  iconType) => {
     switch (iconType) {
 
       case 'edit':
-        dispatch(setCurrentTodoNum(num));
+        dispatch(setCurrentTodoId(id));
         break;
 
       case 'archive':
-        dispatch(archiveTodo({ num, id }));
-        dispatch(changeStatistics({ id, active: -1, total: 0 }));
+        dispatch(archiveTodo(id));
+        dispatch(changeStatistics({ categoryId, active: -1, total: 0 }));
         break;
 
       case 'delete':
-        dispatch(deleteTodo({ num, id }));
-        dispatch(changeStatistics({ id, active: -1, total: -1 }));
+        dispatch(deleteTodo(id));
+        dispatch(changeStatistics({ categoryId, active: -1, total: -1 }));
         break;
 
       case 'extract':
-        dispatch(archiveTodo({num, id }));
-        dispatch(changeStatistics({ id, active: 1, total: 0 }));
+        dispatch(archiveTodo(id));
+        dispatch(changeStatistics({ categoryId, active: 1, total: 0 }));
         break;
       default:
     }
   }
 
-  const getIcons = (flag, num, id) => {
+  const getIcons = (flag, id, categoryId) => {
 
     return flag
       ? <>
-        <i onClick={() => bodyHandler(num, id,'edit')} className="fas fa-pen click_icons"></i>
-        <i onClick={() => bodyHandler(num, id,'archive')} className="far fa-file-archive click_icons"></i>
-        <i onClick={() => bodyHandler(num, id,'delete')} className="far fa-trash-alt click_icons"></i>
+        <i onClick={() => bodyHandler(id, categoryId,'edit')} className="fas fa-pen click_icons"></i>
+        <i onClick={() => bodyHandler(id, categoryId,'archive')} className="far fa-file-archive click_icons"></i>
+        <i onClick={() => bodyHandler(id, categoryId,'delete')} className="far fa-trash-alt click_icons"></i>
       </>
-      : <i onClick={() => bodyHandler(num, id,'extract')} className="fas fa-upload click_icons"></i>
+      : <i onClick={() => bodyHandler(id, categoryId,'extract')} className="fas fa-upload click_icons"></i>
   }
 
   return data.map((item, i) =>
     bodyType === 'todos'
       ? (isShowAllTodos || item.active) &&
-          <tr key={item.created}>
+          <tr key={item.id}>
             <td><i className={categories[item.categoryId].icon + ' circle'}></i>{item.name}</td>
             <td>{dateFormat(item.created)}</td>
             <td>{categories[item.categoryId].name}</td>
             <td>{item.content}</td>
             <td>{extractDates(item.content)}</td>
             <td className='icons'>
-              {getIcons(item.active, i, item.categoryId)}
+              {getIcons(item.active, item.id, item.categoryId)}
             </td>
           </tr>
       : item.total > 0

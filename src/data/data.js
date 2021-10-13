@@ -15,6 +15,7 @@ export const categories = {
 
 export const todos = [
   {
+    id: 1,
     name: 'Shoping list',
     created: 1633670000000,
     categoryId: '0',
@@ -22,6 +23,7 @@ export const todos = [
     active: true,
   },
   {
+    id: 2,
     name: 'New Feature',
     created: 1633000060000,
     categoryId: '1',
@@ -29,6 +31,7 @@ export const todos = [
     active: false,
   },
   {
+    id: 3,
     name: 'Books',
     created: 1630000066048,
     categoryId: '2',
@@ -36,6 +39,7 @@ export const todos = [
     active: true,
   },
   {
+    id: 4,
     name: 'Shoping list',
     created: 1633670000001,
     categoryId: '0',
@@ -43,6 +47,7 @@ export const todos = [
     active: true,
   },
   {
+    id: 5,
     name: 'Sometimes',
     created: 1633000060001,
     categoryId: '1',
@@ -50,6 +55,7 @@ export const todos = [
     active: false,
   },
   {
+    id: 6,
     name: 'Books',
     created: 1630000066049,
     categoryId: '2',
@@ -57,6 +63,7 @@ export const todos = [
     active: true,
   },
   {
+    id: 7,
     name: 'Mashine',
     created: 1630000066044,
     categoryId: '0',
