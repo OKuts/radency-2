@@ -9,7 +9,7 @@ export const todosSlice = createSlice({
       isShowAllTodos: false,
       currentTodo: {
         categoryId: '0',
-        id: -1,
+        id: '-1',
         name: '',
         content: ''
       }
@@ -33,12 +33,12 @@ export const todosSlice = createSlice({
         state.currentTodo.categoryId = action.payload;
       },
       cleanCurrentTodo: state => {
-        state.currentTodo = {categoryId: '0', num: -1, name: '', content: ''}
+        state.currentTodo = {categoryId: '0', name: '', content: ''}
       },
       setCurrentTodoId: (state, action) => {
         const el = action.payload ? state.todos.filter(todo => todo.id === action.payload)[0] : null;
         state.currentTodo = {
-          id: el ? action.payload :  0,
+          id: el ? action.payload :  '0',
           categoryId: el ? el.categoryId : '0',
           name: el ? el.name : '',
           content: el ? el.content : '',

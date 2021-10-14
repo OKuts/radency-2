@@ -9,7 +9,7 @@ export const Button = (props) => {
 
   const onButton = (e) => {
     e.preventDefault();
-    dispatch(setCurrentTodoId(0 ));
+    dispatch(setCurrentTodoId('0' ));
   }
 
   return (

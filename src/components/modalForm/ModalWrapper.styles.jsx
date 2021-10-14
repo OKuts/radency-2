@@ -21,6 +21,11 @@ export const ModalWrapper = styled.div`
     font-size: 18px;
     border-radius: 5px;
     
+    & label>span {
+      margin-left: 10px;
+      font-size: 0.7rem;
+      color: crimson;
+    }
     & select, input, textarea {
       margin: 10px 0 20px 0;
     }

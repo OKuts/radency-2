@@ -17,6 +17,9 @@ export const ButtonWrapper = styled.div`
       cursor: pointer;
       color: #555;
     }
-
+    
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 `;
