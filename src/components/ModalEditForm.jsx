@@ -17,7 +17,6 @@ export const ModalEditForm = ({data}) => {
   const submitForm = (e, categoryId) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(categoryId, typeof categoryId)
     if (currentTodo.id) {
       dispatch(editTodo(currentTodo.id));
     } else {

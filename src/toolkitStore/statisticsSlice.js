@@ -22,9 +22,7 @@ export const statisticsSlice = createSlice({
 
     changeStatistics(state, action) {
       const statisticsCopy = {...state.statistics};
-      console.log(action.payload)
       Object.keys(statisticsCopy).forEach(item => {
-        console.log(action.payload.categoryId, item)
         if (action.payload.categoryId === item) {
           statisticsCopy[item].active += action.payload.active;
           statisticsCopy[item].total += action.payload.total;
